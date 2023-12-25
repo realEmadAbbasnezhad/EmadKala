@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmadKalaWeb.Controllers;
 
 /// <summary>
-/// sing in, sing up and everything related to users account is handling by this controller.
+/// sign in, sign up and everything related to users account is handling by this controller.
 /// </summary>
 [ApiController, Route("account")]
 public class AccountController : Controller
