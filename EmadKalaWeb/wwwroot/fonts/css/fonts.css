@@ -1,0 +1,10 @@
+/* This file is a part of EmadKala, Licenced under https://www.gnu.org/licenses/gpl-3.0.html
+   Copyright (C) 2023-2024 Emad Abbasnezhad (real_emad_abbasnezhad@proton.me) */
+
+@font-face {
+    font-family: irsans;
+    src: url(../font/iransans.woff2) format("woff"),
+        url(../font/iransans.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal
+}
