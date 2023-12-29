@@ -10,9 +10,4 @@ public interface IEmadKalaSmsService
 // [Quick Start] hare you must implant the way you send sms to user.
 public class EmadKalaSmsService : IEmadKalaSmsService
 {
-    // this welcome message also have a confirmation code for this phone number
-    public async Task SendWelcomeAsync(string phoneNumber, string confirmationCode)
-    {
-        await new TaskFactory().StartNew(() => { });
-    }
 }
