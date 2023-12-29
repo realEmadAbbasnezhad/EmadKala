@@ -1,0 +1,17 @@
+@* This file is a part of EmadKala, Licenced under https://www.gnu.org/licenses/gpl-3.0.html
+   Copyright (C) 2023-2024 Emad Abbasnezhad (real_emad_abbasnezhad@proton.me) *@
+
+@{ Layout = "_BaseLayout"; }
+
+<header></header>
+<main style="background-image: url('/imgs/background/background0.jpg');">
+    <div class="d-flex align-items-center min-vh-100">
+        <div class="container" style="width: 30rem">
+            <div class="card text-dark shadow border-light" 
+                 style="backdrop-filter: blur(2px); background-color: rgb(255 255 255 / 0.7);">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</main>
+<footer></footer>
