@@ -1,6 +1,8 @@
 @* This file is a part of EmadKala, Licenced under https://www.gnu.org/licenses/gpl-3.0.html
    Copyright (C) 2023-2024 Emad Abbasnezhad (real_emad_abbasnezhad@proton.me) *@
 
+@* [Quick Start] remmember to check every page for localazation. *@
+
 @model SignupViewModel
 @{ Layout = "_CardLayout"; }
 
@@ -35,6 +37,7 @@
             </button>
         </div>
 
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.ReturnUrl)
     </form>
 </div>
