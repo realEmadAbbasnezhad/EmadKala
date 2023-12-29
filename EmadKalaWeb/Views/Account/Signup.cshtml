@@ -1,18 +1,47 @@
+@* This file is a part of EmadKala, Licenced under https://www.gnu.org/licenses/gpl-3.0.html
+   Copyright (C) 2023-2024 Emad Abbasnezhad (real_emad_abbasnezhad@proton.me) *@
+
 @model SignupViewModel
+@{ Layout = "_CardLayout"; }
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      Signup
+<div class="card-header text-center">
+    <h4>
+        <b>عضویت</b>
+    </h4>
+    <small>
+        حساب دارید؟
+        <a asp-controller="Account" asp-action="Signin">وارد شوید</a>
+    </small>
 </div>
-</body>
-</html>
+
+<div class="card-body">
+    <form asp-controller="Account" asp-action="Signup" method="post">
+        <div class="text-end">
+            <div class="form-group mb-3">
+                <label asp-for="PhoneNumber" class="mb-1"></label>
+                <input asp-for="PhoneNumber" class="form-control mb-1" placeholder="09** *** ****">
+                <small>
+                    یک کد به این شماره ارسال میشود تا هویت شما را تایید کند
+                </small>
+            </div>
+            <div class="form-group mb-4">
+                <label asp-for="Password" class="mb-1"></label>
+                <input asp-for="Password" class="form-control mb-1">
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary" style="width: 10rem">
+                تایید
+            </button>
+        </div>
+
+        @Html.HiddenFor(model => model.ReturnUrl)
+    </form>
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="card-footer text-danger text-end">
+        <p class="mt-1">@Html.ValidationSummary()</p>
+    </div>
+}
