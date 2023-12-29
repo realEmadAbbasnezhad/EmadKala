@@ -48,7 +48,7 @@ builder.Services.ConfigureApplicationCookie(opt =>
     opt.Cookie.SameSite = SameSiteMode.Unspecified;
     opt.Cookie.SecurePolicy = CookieSecurePolicy.None;
     opt.Cookie.IsEssential = false;
-    opt.Cookie.Expiration = opt.ExpireTimeSpan = TimeSpan.FromHours(1);
+    opt.ExpireTimeSpan = TimeSpan.FromHours(1);
     opt.SlidingExpiration = true;
 
     // [Quick Start] im very recommend to use this because it will save private data encrypted in DB. 
@@ -131,7 +131,8 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 
-//==== Core (ASP net core MVC) ====
+//==== Core (ASP net core MVC, wwwroot) ====
+app.UseStaticFiles();
 app.MapControllers();
 
 #endregion
