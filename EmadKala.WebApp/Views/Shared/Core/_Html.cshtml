@@ -1,0 +1,36 @@
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html lang="fa" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@(ViewData.ContainsKey("title") ? "عماد کالا - " + ViewData["title"] : "عماد کالا")</title>
+
+    <meta name="theme-color" content="#ffcc00"/>
+    <link rel="shortcut icon" type="image/png" href="~/img/brand/EmadKala.svg"/>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/bootstrap-icons.css">
+    @await RenderSectionAsync("css", required: false)
+</head>
+<body>
+
+@RenderBody()
+
+<script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/bootstrap/bootstrap.js"></script>
+<script>
+    $(function () {
+        // auto dark mode
+        function updateTheme() {
+            const colorMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            document.querySelector("html").setAttribute("data-bs-theme", colorMode)
+        }
+        updateTheme()
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
+    })
+</script>
+@await RenderSectionAsync("js", required: false)
+</body>
+</html>
