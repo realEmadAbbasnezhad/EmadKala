@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EmadKala.Database\EmadKala.Database.csproj" />
+      <ProjectReference Include="..\EmadKala.Services\EmadKala.Services.csproj" />
     </ItemGroup>
 
 </Project>
