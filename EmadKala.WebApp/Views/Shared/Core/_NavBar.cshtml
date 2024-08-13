@@ -1,0 +1,154 @@
+@{ Layout = "Core/_NavbarBase"; }
+
+<ul class="navbar-nav">
+    @* 1nd item *@
+    <li class="nav-item dropdown position-static">
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+            کلاینت
+        </a>
+        <div class="dropdown-menu container-sm mt-2 mx-2" style="max-width: 30rem">
+            <div class="row mx-2 row-cols-1 row-cols-sm-2">
+                <div class="col">
+                    <div class="list-group list-group-flush">
+                        <b class="list-group-item border-bottom border-primary text-center mb-2" dir="rtl">
+                            قطعات داخلی
+                        </b>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            RAM
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            CPU
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            Mother board
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            SSD / HDD
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            Power unit
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="list-group list-group-flush">
+                        <b class="list-group-item border-bottom border-primary text-center mb-2" dir="rtl">
+                            لوازم جانبی
+                        </b>
+                        <a class="list-group-item list-group-item-action text-end" dir="rtl" href="">
+                            مانیتور
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" dir="rtl" href="">
+                            ماوس
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" dir="rtl" href="">
+                            صفحه کلید
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" dir="rtl" href="">
+                            بلندگو / هدفون
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+
+    @* 2nd item *@
+    <li class="nav-item dropdown position-static">
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+            سرور
+        </a>
+        <div class="dropdown-menu container-sm mt-2 mx-2" style="max-width: 30rem">
+            <div class="row mx-2 row-cols-1 row-cols-sm-2">
+                <div class="col">
+                    <div class="list-group list-group-flush">
+                        <b class="list-group-item border-bottom border-primary text-center mb-2" dir="rtl">
+                            تجهیزات Rack mount
+                        </b>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            NAS
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            GPU based
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            CPU based
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            Switch - Router
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" href="" dir="rtl">
+                            Power units / UPS
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="list-group list-group-flush">
+                        <b class="list-group-item border-bottom border-primary text-center mb-2" dir="rtl">
+                            تجهیزات شبکه
+                        </b>
+                        <a class="list-group-item list-group-item-action text-end" dir="rtl" href="">
+                            کابل(RJ45) / سوکت
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" dir="rtl" href="">
+                            کابل(نوری) / سوکت
+                        </a>
+                        <a class="list-group-item list-group-item-action text-end" dir="rtl" href="">
+                            Access point / Modem
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+
+    @* 3rd item *@
+    <li class="nav-item">
+        <a class="nav-link" href="/job">پشتیبانی</a>
+    </li>
+</ul>
+
+@* login and new notice buttones /desktop *@
+<div class="d-none d-sm-block d-flex ms-auto">
+    @if (!ViewData.ContainsKey("HideNavbarNoticeBtn"))
+    {
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a type="button" class="btn btn-outline-primary" href="">سبد خرید</a>
+            @if (User.IsInRole("admin"))
+            {
+                <a type="button" class="btn btn-primary" href="">مدیریت سایت</a>
+            }
+        </div>
+    }
+
+    @if (!ViewData.ContainsKey("HideNavbarAccountBtn"))
+    {
+        <a class="btn btn-primary ms-1" asp-controller="AccountApp" 
+           asp-action="@(User.Identity!.IsAuthenticated ? "Index" : "Login")" asp-route-returnUrl="/">
+            @(User.Identity!.IsAuthenticated ? "حساب کاربری" : "ورود")
+        </a>
+    }
+</div>
+
+@* login and new notice buttones /phone *@
+<div class="d-block d-sm-none d-grid g-2">
+    @if (!ViewData.ContainsKey("HideNavbarNoticeBtn"))
+    {
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a type="button" class="btn btn-outline-primary" href="">سبد خرید</a>
+            @if (User.IsInRole("admin"))
+            {
+                <a type="button" class="btn btn-primary" href="">مدیریت سایت</a>
+            }
+        </div>
+    }
+    @if (!ViewData.ContainsKey("HideNavbarAccountBtn"))
+    {
+        <a class="btn btn-primary" asp-controller="AccountApp"
+           asp-action="@(User.Identity!.IsAuthenticated ? "Index" : "Login")" asp-route-returnUrl="/">
+            @(User.Identity!.IsAuthenticated ? "حساب کاربری" : "ورود")
+        </a>
+    }
+</div>

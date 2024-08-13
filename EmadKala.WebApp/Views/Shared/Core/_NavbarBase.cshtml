@@ -1,0 +1,31 @@
+@{ Layout = null; }
+
+<nav class="navbar bg-body-tertiary navbar-expand-md border-bottom border-primary">
+    <div class="container-fluid">
+
+        @* brand *@
+        <span class="navbar-brand">
+            <img src="/img/brand" alt="" width="30" height="38" class="d-inline-block">
+        </span>
+
+        @await RenderSectionAsync("navContent_noCollapse", false)
+
+        @* navbar toggler *@
+        <button class="navbar-toggler bg-primary" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            <i class="bi bi-list" style="color: var(--bs-dark); font-size: 2rem"></i>
+        </button>
+
+        <div class="offcanvas offcanvas-end border-start border-primary w-75" tabindex="-1" id="offcanvasNavbar">
+            <div class="offcanvas-header">
+                <h2 class="text-primary" dir="rtl">عماد کالا</h2>
+                <button type="button" class="btn-close btn-close-primary" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body w-auto">
+
+                @* this will be showen in both navbar and its offcanvas *@
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</nav>

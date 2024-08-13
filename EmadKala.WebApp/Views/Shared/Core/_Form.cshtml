@@ -1,0 +1,23 @@
+@{
+    Layout = "Core/_Html";
+}
+
+@await Html.PartialAsync("Core/_Navbar")
+
+<main class="container-fluid align-items-center my-5" style="max-width: 30rem">
+    <div class="card border-primary">
+        @RenderBody()
+    </div>
+</main>
+
+@await Html.PartialAsync("Core/_Footer")
+    
+@section js
+{
+    @await RenderSectionAsync("js", false)
+}
+
+@section css
+{
+    @await RenderSectionAsync("css", false)
+}
