@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <ContainerUser>root</ContainerUser>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,6 +17,10 @@
     <ItemGroup>
       <ProjectReference Include="..\EmadKala.Database\EmadKala.Database.csproj" />
       <ProjectReference Include="..\EmadKala.Services\EmadKala.Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.5" />
     </ItemGroup>
 
 </Project>

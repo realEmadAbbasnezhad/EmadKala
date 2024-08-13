@@ -1,27 +1,43 @@
+using EmadKala.Database;
+using EmadKala.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region Services
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<EmadKalaAccountDbContext>(opt =>
+    opt.UseMySQL(builder.Configuration.GetConnectionString("Account")!));
+
+builder.Services.AddIdentity<EmadKalaUser, EmadKalaRole>()
+    .AddEntityFrameworkStores<EmadKalaAccountDbContext>()
+    .AddOtpTokenProvider();
+
+builder.Services.AddTransient<ISmsService, SmsService>();
+
+builder.Services.AddAuthentication().AddCookie(opt =>
+{
+    opt.LoginPath = "/Account/Portal";
+});
+builder.Services.AddAuthorization();
+
+#endregion
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+#region Pipeline
+
+app.Services.CreateScope().ServiceProvider.GetService<EmadKalaAccountDbContext>()?.Database.EnsureCreated();
 
 app.UseHttpsRedirection();
+app.MapDefaultControllerRoute();
 app.UseStaticFiles();
 
-app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+#endregion
 
 app.Run();
