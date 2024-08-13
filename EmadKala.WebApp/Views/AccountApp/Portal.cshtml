@@ -1,0 +1,412 @@
+@model AccountAppController.PortalViewModel
+@{
+    Layout = "Core/_Form";
+    ViewBag.Title = "پرتال کاربری";
+    ViewData.Add("HideNavbarAccountBtn", 1);
+}
+
+<div class="card-header text-center">
+    <h3 class="my-3" dir="rtl">
+        پرتال کاربری
+    </h3>
+    <ul class="nav nav-pills card-header-pills nav-justified d-none" id="secondStepNav" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#secondStepPanel_signup"
+                    type="button" role="tab" id="secondStepNav_signup">
+                ثبت نام
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#secondStepPanel_otp"
+                    type="button" role="tab" id="secondStepNav_otp">
+                ورود با رمز یکبار مصرف
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#secondStepPanel_password"
+                    type="button" role="tab" id="secondStepNav_password">
+                ورود با رمز ثابت
+            </button>
+        </li>
+    </ul>
+</div>
+
+<div class="card-body" id="portalForm">
+    <div dir="rtl">
+        <label class="form-label" for="portalForm_phoneNumber">
+            شماره همراه
+        </label>
+    </div>
+    <input class="form-control" type="tel" id="portalForm_phoneNumber">
+    <div id="portalForm_phoneNumberFeedback" class="d-none" dir="rtl"></div>
+    <div class="form-text" dir="rtl">
+        از شماره همراه شما هم برای ثبت نام و هم برای ورود استفاده میشود.
+    </div>
+
+    <div class="d-grid mt-4">
+        <button class="btn btn-primary" id="portalForm_submit" dir="rtl">
+            تایید
+        </button>
+    </div>
+</div>
+
+<div class="card-body d-none" id="secondStep">
+    <div class="tab-content">
+        <div class="tab-pane fade" id="secondStepPanel_signup" role="tabpanel" tabindex="0">
+            <div dir="rtl">
+                <label class="form-label" for="signupForm_code">
+                    کد ارسالی
+                </label>
+            </div>
+            <input class="form-control" type="tel" id="signupForm_code">
+            <div id="signupForm_codeFeedback" class="d-none" dir="rtl"></div>
+            <div class="form-text" dir="rtl">
+                کد ارسالی به
+                <span id="signupForm_phoneNumberText"></span>
+                را وارد کنید.
+                <br/>
+                <a href="/Account/Portal">
+                    شماره را اشتباه وارد کرده ام
+                </a>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button class="btn btn-primary" id="signupForm_submit" dir="rtl">
+                    تایید
+                </button>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="secondStepPanel_otp" role="tabpanel" tabindex="0">
+            <div dir="rtl">
+                <label class="form-label" for="otpForm_code">
+                    کد ارسالی
+                </label>
+            </div>
+            <input class="form-control" id="otpForm_code">
+            <div id="otpForm_codeFeedback" class="d-none" dir="rtl"></div>
+            <div class="form-text" dir="rtl">
+                کد ارسالی به
+                <span id="otpForm_phoneNumberText"></span>
+                را وارد کنید.
+                <br/>
+                <a href="/Account/Portal">
+                    شماره را اشتباه وارد کرده ام
+                </a>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button class="btn btn-primary" id="otpForm_submit" dir="rtl">
+                    تایید
+                </button>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="secondStepPanel_password" role="tabpanel" tabindex="0">
+            <div dir="rtl">
+                <label class="form-label" for="passwordForm_code">
+                    رمز ثابت
+                </label>
+            </div>
+            <input class="form-control" type="password" id="passwordForm_code">
+            <div id="password_codeFeedback" class="d-none" dir="rtl"></div>
+            <div class="form-text" dir="rtl">
+                کد ارسالی به
+                <span id="password_phoneNumberText"></span>
+                را وارد کنید.
+                <br/>
+                <a href="/Account/Portal">
+                    شماره را اشتباه وارد کرده ام
+                </a>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button class="btn btn-primary" id="password_submit" dir="rtl">
+                    تایید
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* ========= JS ========= *@
+@section js {<script>$(function() {
+    const portalForm = $('#portalForm')
+    const portalForm_submit = $('#portalForm_submit')
+    const portalForm_phoneNumber = $('#portalForm_phoneNumber')
+    const portalForm_phoneNumberFeedback = $('#portalForm_phoneNumberFeedback')
+    
+    const secondStep = $('#secondStep')
+    const secondStepNav = $('#secondStepNav')
+    const secondStepNav_signup = $('#secondStepNav_signup')
+    const secondStepNav_otp = $('#secondStepNav_otp')
+    const secondStepNav_password = $('#secondStepNav_password')
+    const secondStepPanel_signup = $('#secondStepPanel_signup')
+    const secondStepPanel_otp = $('#secondStepPanel_otp')
+    const secondStepPanel_password = $('#secondStepPanel_password')
+
+    const signupForm_code = $('#signupForm_code')
+    const signupForm_codeFeedback = $('#signupForm_codeFeedback')
+    const signupForm_phoneNumberText = $('#signupForm_phoneNumberText')
+    const signupForm_submit = $('#signupForm_submit')
+    
+    const otpForm_code = $('#otpForm_code')
+    const otpForm_codeFeedback = $('#otpForm_codeFeedback')
+    const otpForm_phoneNumberText = $('#otpForm_phoneNumberText')
+    const otpForm_submit = $('#otpForm_submit')
+    
+    const passwordForm_code = $('#passwordForm_code')
+    const passwordForm_codeFeedback = $('#passwordForm_codeFeedback')
+    const passwordForm_phoneNumberText = $('#passwordForm_phoneNumberText')
+    const passwordForm_submit = $('#passwordForm_submit')
+    
+    function finalRedirect() {
+        let urlSearch = new URLSearchParams(window.location.search);
+        window.location.href = urlSearch.has("ReturnUrl") ? urlSearch.get("ReturnUrl") : '/';
+    }
+    
+    function portalFormApi(phoneNumber) {
+        let phoneNumber_ = phoneNumber
+        
+        // loading animation
+        portalForm_submit.empty().attr('disabled', true).append(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>')
+        
+        $.ajax({ type: 'GET', url: '/Api/Account/Portal', data: {"PhoneNumber": phoneNumber_, "RequestOtp": true},
+        success: function(data0) {
+            let data0_exist = data0.valueOf()['exist'].toString()
+            let data0_hasPassword = data0.valueOf()['hasPassword'].toString()
+            let data0_optCooldown = data0.valueOf()['optCooldown'].toString()
+            
+            if (data0_exist === 'null' && data0_hasPassword === 'null' && data0_optCooldown === 'null') finalRedirect()
+            
+            portalForm.addClass("d-none")
+            secondStep.removeClass("d-none")
+            secondStepNav.removeClass("d-none")
+            
+            if (data0_exist === 'false') {
+                secondStepNav_signup.addClass("active")
+                secondStepPanel_signup.addClass("show active")
+                
+                secondStepNav_otp.parent().remove()
+                secondStepNav_password.parent().remove()
+                
+                signupForm_phoneNumberText.text(phoneNumber_)
+            } else if (data0_hasPassword === 'true') {
+                secondStepNav_password.addClass("active")
+                secondStepPanel_password.addClass("show active")
+                
+                secondStepNav_signup.parent().remove()
+            } else {
+                secondStepNav_otp.addClass("active")
+                secondStepPanel_otp.addClass("show active")
+                secondStepNav_password.addClass("disabled")
+                
+                secondStepNav_signup.parent().remove()
+                
+                otpForm_phoneNumberText.text(phoneNumber_)
+                
+                if (data0_optCooldown === 'true') otpForm_submit.parent().parent().prepend(
+                    '<div class="alert alert-warning" role="alert" dir="rtl">'+
+                        'برای شما قبلا کد ارسال شده است. در صورتی که آنرا دریافت نکرده اید '+
+                        '<a href="/Account/Portal" class="alert-link">بعد از یک دقیقه دوباره امتحان کنید.</a>'+
+                    '</div>')
+            }
+        }})
+    }
+    portalForm_submit.on('click', function() {
+        function validation_phoneNumber(is_valid) {
+            let controlClass = Boolean(is_valid) ? 'is-valid' : 'is-invalid'
+            let feedbackClass = Boolean(is_valid) ? 'valid-feedback' : 'invalid-feedback'
+            
+            portalForm_phoneNumber.removeClass().addClass(controlClass).addClass('form-control')
+            portalForm_phoneNumberFeedback.removeClass().addClass(feedbackClass)
+        }
+        
+        let phoneNumber = portalForm_phoneNumber.val()
+        if (phoneNumber === "") {
+            portalForm_phoneNumberFeedback.text("شماره همراه وارد نشده");
+            validation_phoneNumber(false);
+        }
+        else if (!(new RegExp("^0?(9\\d{9})$").test(phoneNumber))) {
+            portalForm_phoneNumberFeedback.text("شماره همراه نا معتبر است");
+            validation_phoneNumber(false);
+        }
+        else {
+            portalForm_phoneNumberFeedback.empty();
+            validation_phoneNumber(true);
+            
+            portalFormApi(phoneNumber);
+        }
+    })
+    
+    function signupFormApi(code, phoneNumber) {
+        // loading animation
+        signupForm_submit.empty().attr('disabled', true).append(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>')
+        
+        $.ajax({type: 'POST', url: '/Api/Account/SigninOtp?PhoneNumber=' + phoneNumber + '&Code=' + code,
+            success: function(data2) { switch (data2.toString()) {
+                case "0":// Authenticated
+                    finalRedirect();
+                break
+                case "1":// UserNotExist
+                    // impossible!
+                break
+                case "2":// Expired
+                    signupForm_code.removeClass().addClass('is-invalid').addClass('form-control')
+                    signupForm_codeFeedback.removeClass().addClass('invalid-feedback')
+                    signupForm_codeFeedback.text(
+                        "عمر کد از ۱۵ دقیقه بیشتر است. " +
+                        "<a href='/Account/Portal'>کد دیگری را درخواست دهید</a>");
+                    
+                    signupForm_submit.text('تایید')
+                break
+                case "3":// CoolDown
+                    signupForm_code.removeClass().addClass('is-invalid').addClass('form-control')
+                    signupForm_codeFeedback.removeClass().addClass('invalid-feedback')
+                    signupForm_codeFeedback.text(
+                        "شما ۵ بار رمز یکبار مصرف را اشتباه وارد کرده اید. " +
+                        " بعد از یک دقیقه دوباره امتحان کنید.");
+                    
+                    signupForm_submit.attr('disabled', false).text('تایید')
+                break
+                case "4":// WrongCode
+                    signupForm_code.removeClass().addClass('is-invalid').addClass('form-control')
+                    signupForm_codeFeedback.removeClass().addClass('invalid-feedback')
+                    signupForm_codeFeedback.text("کد وارد شده صحیح نمی باشد");
+                    
+                    signupForm_submit.attr('disabled', false).text('تایید')
+                break
+                case "5":// NeverRequested
+                    // impossible!
+                break
+                case "6":// Ok
+                    finalRedirect();
+                break
+            }},
+        });
+    }
+    signupForm_submit.on('click', function() {
+        function signupForm_validation_code(is_valid) {
+            let controlClass = Boolean(is_valid) ? 'is-valid' : 'is-invalid'
+            let feedbackClass = Boolean(is_valid) ? 'valid-feedback' : 'invalid-feedback'
+            
+            signupForm_code.removeClass().addClass(controlClass).addClass('form-control')
+            signupForm_codeFeedback.removeClass().addClass(feedbackClass)
+        }
+        
+        let code = signupForm_code.val()
+        if (code === "") {
+            signupForm_codeFeedback.text("کد را وارد کنید!");
+            signupForm_validation_code(false);
+        }
+        else if (!(new RegExp("^[0-9]{6}$").test(code))) {
+            signupForm_codeFeedback.text("کد نا معتبر است!");
+            signupForm_validation_code(false);
+        }
+        else {
+            signupForm_codeFeedback.empty()
+            signupForm_validation_code(true)
+            
+            signupFormApi(code, portalForm_phoneNumber.val())
+        }
+    })
+    
+    function otpFormApi(code, phoneNumber) {
+        // loading animation
+        otpForm_submit.empty().attr('disabled', true).append(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>')
+                
+        $.ajax({type: 'POST', url: '/Api/Account/SigninOtp?PhoneNumber=' + phoneNumber + '&Code=' + code,
+            success: function(data3) { switch (data3.toString()) {
+            case "0":// Authenticated
+                finalRedirect();
+            break
+            case "1":// UserNotExist
+                // impossible!
+            break
+            case "2":// Expired
+                otpForm_code.removeClass().addClass('is-invalid').addClass('form-control')
+                otpForm_codeFeedback.removeClass().addClass('invalid-feedback')
+                otpForm_codeFeedback.text(
+                    "عمر کد از ۱۵ دقیقه بیشتر است. " +
+                    "<a href='/Account/Portal'>کد دیگری را درخواست دهید</a>");
+                
+                otpForm_submit.text('تایید')
+            break
+            case "3":// CoolDown
+                otpForm_code.removeClass().addClass('is-invalid').addClass('form-control')
+                otpForm_codeFeedback.removeClass().addClass('invalid-feedback')
+                otpForm_codeFeedback.text(
+                    "شما ۵ بار رمز یکبار مصرف را اشتباه وارد کرده اید. " +
+                    " بعد از یک دقیقه دوباره امتحان کنید.");
+                
+                otpForm_submit.attr('disabled', false).text('تایید')
+            break
+            case "4":// WrongCode
+                otpForm_code.removeClass().addClass('is-invalid').addClass('form-control')
+                otpForm_codeFeedback.removeClass().addClass('invalid-feedback')
+                otpForm_codeFeedback.text("کد وارد شده صحیح نمی باشد");
+                
+                otpForm_submit.attr('disabled', false).text('تایید')
+            break
+            case "5":// NeverRequested
+                // impossible!
+            break
+            case "6":// Ok
+                finalRedirect();
+            break
+        }}});
+    }
+    otpForm_submit.on('click', function() {
+        function otpForm_validation_code(is_valid) {
+            let controlClass = Boolean(is_valid) ? 'is-valid' : 'is-invalid'
+            let feedbackClass = Boolean(is_valid) ? 'valid-feedback' : 'invalid-feedback'
+            
+            otpForm_code.removeClass().addClass(controlClass).addClass('form-control')
+            otpForm_codeFeedback.removeClass().addClass(feedbackClass)
+        }
+        
+        let code = otpForm_code.val()
+        if (code === "") {
+            otpForm_codeFeedback.text("کد را وارد کنید!");
+            otpForm_validation_code(false);
+        }
+        else if (!(new RegExp("^[0-9]{6}$").test(code))) {
+            otpForm_codeFeedback.text("کد نا معتبر است!");
+            otpForm_validation_code(false);
+        }
+        else {
+            otpForm_codeFeedback.empty()
+            otpForm_validation_code(true)
+            
+            otpFormApi(code, portalForm_phoneNumber.val())
+        }
+    })
+    
+    /*
+    function passwordFormApi(code, phoneNumber) {
+        
+    }
+    passwordForm_submit.on('click', function() {
+        function passwordForm_validation_code(is_valid) {
+            let controlClass = Boolean(is_valid) ? 'is-valid' : 'is-invalid'
+            let feedbackClass = Boolean(is_valid) ? 'valid-feedback' : 'invalid-feedback'
+            
+            passwordForm_code.removeClass().addClass(controlClass).addClass('form-control')
+            passwordForm_codeFeedback.removeClass().addClass(feedbackClass)
+        }
+        
+        let code = passwordForm_code.val()
+        if (code === "") {
+            passwordForm_codeFeedback.text("کد را وارد کنید!");
+            passwordForm_validation_code(false);
+        }
+        else {
+            passwordForm_codeFeedback.empty()
+            passwordForm_validation_code(true)
+            
+            passwordFormApi(code, portalForm_phoneNumber.val())
+        }
+    })*/
+})</script>}
