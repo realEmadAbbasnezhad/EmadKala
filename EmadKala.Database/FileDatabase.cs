@@ -21,7 +21,7 @@ public class EmadKalaFileDbContext(DbContextOptions<EmadKalaFileDbContext> opt) 
     
     public static async Task WriteUserFileAsync(int id, byte[]? data)
     {
-        var filePath = $"/fileSystem/{id}";
+        var filePath = $"/fileDatabase/{id}";
 
         // delete
         if (data == null)
@@ -37,7 +37,7 @@ public class EmadKalaFileDbContext(DbContextOptions<EmadKalaFileDbContext> opt) 
 
     public static async Task<byte[]?> ReadUserFileAsync(int id)
     {
-        var filePath = $"/fileSystem/{id}";
+        var filePath = $"/fileDatabase/{id}";
 
         // read
         if (!File.Exists(filePath)) return null;
