@@ -1,0 +1,42 @@
+@using EmadKala.Database
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model AdminController.SubmitSubCategoryViewModel
+@{
+    Layout = "Core/_Form";
+    ViewBag.Title = "افزودن دسته بندی";
+}
+
+<div class="card-header text-center">
+    <h3 class="my-3" dir="rtl">
+        افزودن دسته بندی
+    </h3>
+</div>
+<form class="card-body" asp-controller="Admin" asp-action="SubmitSubCategory" method="post">
+    <div class="form-text mb-2" dir="rtl">
+        در صورتی که دسته بندی محصولی که آگهی میکنید در لیست نبود از اینجا اضافه کنید.
+    </div>
+    <div class="mb-2">
+        <label class="form-label" asp-for="Category"></label><span class="text-danger"> *</span>
+        <select class="form-select" id="StateDropDown" asp-for="Category">
+            <option selected hidden="hidden" value="-1"></option>
+            @for (var i = 1; i <= EmadKalaStoreDbContext.Categories.Count; i++)
+            {
+                <option value="@i">@(EmadKalaStoreDbContext.Categories[i - 1].Name)</option>
+            }
+        </select>
+        <span class="form-text text-danger" asp-validation-for="Category" dir="rtl"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="ProductName"></label><span class="text-danger"> *</span>
+        <input class="form-control" asp-for="ProductName"/>
+        <span class="form-text text-danger" asp-validation-for="ProductName" dir="rtl"></span>
+    </div>
+    @Html.HiddenFor(x => x.ReturnUrl)
+    @Html.AntiForgeryToken()
+
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary" dir="rtl">
+            افزودن
+        </button>
+    </div>
+</form>
