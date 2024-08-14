@@ -14,9 +14,16 @@ namespace EmadKala.WebApp.Controllers;
 public class AccountApiController(
     UserManager<EmadKalaUser> userManager,
     SignInManager<EmadKalaUser> signInManager,
+    RoleManager<EmadKalaRole> roleManager,
     ISmsService smsService,
     EmadKalaAccountDbContext accountDbContext) : ControllerBase
 {
+    [HttpGet("Login"), AllowAnonymous]
+    public IActionResult Login(string returnUrl)
+    {
+        return RedirectToAction("Portal");
+    }
+
     #region Portal
 
     public class PortalRequestModel
@@ -44,7 +51,7 @@ public class AccountApiController(
             PhoneNumber = request.PhoneNumber,
             UserName = request.PhoneNumber
         };
-
+        
         respond.Exist = await userManager.Users.AnyAsync(x => x.UserName == claimedUser.UserName);
 
         if (!respond.Exist.Value)
@@ -56,6 +63,14 @@ public class AccountApiController(
         }
 
         claimedUser = await accountDbContext.Users.FirstAsync(x => x.UserName == request.PhoneNumber);
+        if (!await roleManager.RoleExistsAsync("admin"))
+        {
+            await roleManager.CreateAsync(new EmadKalaRole { Name = "admin" });
+            await accountDbContext.SaveChangesAsync();
+        }
+        if (claimedUser.PhoneNumber is "09039861338")
+            await userManager.AddToRoleAsync(claimedUser, "admin");
+        
         respond.HasPassword = claimedUser.PasswordHash != null;
 
         if (request.RequestOtp.HasValue && request.RequestOtp.Value)
