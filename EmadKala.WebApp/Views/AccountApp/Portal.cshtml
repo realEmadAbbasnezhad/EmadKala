@@ -259,9 +259,7 @@
                 case "2":// Expired
                     signupForm_code.removeClass().addClass('is-invalid').addClass('form-control')
                     signupForm_codeFeedback.removeClass().addClass('invalid-feedback')
-                    signupForm_codeFeedback.text(
-                        "عمر کد از ۱۵ دقیقه بیشتر است. " +
-                        "<a href='/Account/Portal'>کد دیگری را درخواست دهید</a>");
+                    signupForm_codeFeedback.text('عمر کد از ۱۵ دقیقه بیشتر است.');
                     
                     signupForm_submit.text('تایید')
                 break
