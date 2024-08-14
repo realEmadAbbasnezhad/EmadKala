@@ -100,6 +100,7 @@
                 </button>
             </div>
         </div>
+        @*
         <div class="tab-pane fade" id="secondStepPanel_password" role="tabpanel" tabindex="0">
             <div dir="rtl">
                 <label class="form-label" for="passwordForm_code">
@@ -124,11 +125,12 @@
                 </button>
             </div>
         </div>
+        *@
     </div>
 </div>
 
 
-@* ========= JS ========= *@
+
 @section js {<script>$(function() {
     const portalForm = $('#portalForm')
     const portalForm_submit = $('#portalForm_submit')
@@ -154,10 +156,12 @@
     const otpForm_phoneNumberText = $('#otpForm_phoneNumberText')
     const otpForm_submit = $('#otpForm_submit')
     
+    @*
     const passwordForm_code = $('#passwordForm_code')
     const passwordForm_codeFeedback = $('#passwordForm_codeFeedback')
     const passwordForm_phoneNumberText = $('#passwordForm_phoneNumberText')
     const passwordForm_submit = $('#passwordForm_submit')
+    *@
     
     function finalRedirect() {
         let urlSearch = new URLSearchParams(window.location.search);
@@ -384,7 +388,7 @@
         }
     })
     
-    /*
+    @*
     function passwordFormApi(code, phoneNumber) {
         
     }
@@ -408,5 +412,6 @@
             
             passwordFormApi(code, portalForm_phoneNumber.val())
         }
-    })*/
+    })
+    *@
 })</script>}
