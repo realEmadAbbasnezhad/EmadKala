@@ -12,6 +12,8 @@ builder.Services.AddDbContext<EmadKalaAccountDbContext>(opt =>
     opt.UseMySQL(builder.Configuration.GetConnectionString("Account")!));
 builder.Services.AddDbContext<EmadKalaFileDbContext>(opt =>
     opt.UseMySQL(builder.Configuration.GetConnectionString("File")!));
+builder.Services.AddDbContext<EmadKalaStoreDbContext>(opt =>
+    opt.UseMySQL(builder.Configuration.GetConnectionString("Store")!));
 
 builder.Services.AddIdentity<EmadKalaUser, EmadKalaRole>()
     .AddEntityFrameworkStores<EmadKalaAccountDbContext>()
@@ -33,6 +35,7 @@ var app = builder.Build();
 
 app.Services.CreateScope().ServiceProvider.GetService<EmadKalaAccountDbContext>()?.Database.EnsureCreated();
 app.Services.CreateScope().ServiceProvider.GetService<EmadKalaFileDbContext>()?.Database.EnsureCreated();
+app.Services.CreateScope().ServiceProvider.GetService<EmadKalaStoreDbContext>()?.Database.EnsureCreated();
 
 app.UseHttpsRedirection();
 app.MapDefaultControllerRoute();

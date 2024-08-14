@@ -31,7 +31,7 @@ public class ProductModel
     [MaxLength(500)] public string Description { get; set; }
 }
 
-public class EmadKalaGeneralDbContext(DbContextOptions<EmadKalaGeneralDbContext> opt) : DbContext(opt)
+public class EmadKalaStoreDbContext(DbContextOptions<EmadKalaStoreDbContext> opt) : DbContext(opt)
 {
     public DbSet<CategoryModel> SubCategories { get; set; }
     
